@@ -1,3 +1,5 @@
+// leetcode-3634
+
 class Solution {
     public int minRemoval(int[] nums, int k) {
         int n = nums.length;
@@ -19,3 +21,29 @@ class Solution {
         return ans;
     }
 }
+
+
+// #optimize
+
+import java.util.*;
+
+class Solution {
+    public int minRemoval(int[] nums, int k) {
+        int n = nums.length;
+        Arrays.sort(nums);
+
+        int i = 0;
+        int maxWindow = 0;
+
+        for (int j = 0; j < n; j++) {
+            // shrink window until condition is satisfied
+            while (nums[j] > (long) k * nums[i]) {
+                i++;
+            }
+            maxWindow = Math.max(maxWindow, j - i + 1);
+        }
+
+        return n - maxWindow;
+    }
+}
+
